@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <title>AVATAR</title>
+        <link rel="stylesheet" href="main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="manifest" href="manifest1.json">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <script type="text/javascript" src="app.js"></script>
+        <script src="NoSleep.min.js"></script>
+ </head>
+    <body>
+        <div id="code" class="subscription"></div>
+        <div id="showlink" class="link"><a class="small" id="showcode" href="javascript:void(0);">Show me my code again</a></div>
+        <div class="logo"><img src="images/logo.png" width="100"></div>
+        <div class="title">
+            YOU ARE THE AVATAR.<br><br>LISTEN FOR INSTRUCTIONS.<br><br>IF THERE IS NONE, JUST DO WHAT YOU FEEL LIKE.</div><br>
+        <button class="button" id="cmd_play" disabled="disabled">PLAY COMMAND</button>
+        
+         <input class="button2" type="button" id="toggle" value="START" />
+        <audio id="audioElement"></audio>
+
+    <script>
+      var noSleep = new NoSleep();
+      var interval;
+      var wakeLockEnabled = false;
+      var toggleEl = document.querySelector("#toggle");
+      toggleEl.addEventListener('click', function() {
+        
+        if (!wakeLockEnabled) {
+          noSleep.enable(); // keep the screen on!
+          wakeLockEnabled = true;
+          toggleEl.value = "STOP";
+            //Check every 0,2 seconds if a new command has been sent:
+            interval = setInterval(getCommand, 200);
+        
+        } else {
+          noSleep.disable(); // let the screen turn off.
+          wakeLockEnabled = false;
+          toggleEl.value = "START";
+          clearInterval(interval);  
+        }
+      }, false);
+    </script>
+    </body>
+    
+</html>
+
